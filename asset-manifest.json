@@ -1,0 +1,18 @@
+{
+  "files": {
+    "main.css": "/static/css/main.db3eca93.css",
+    "main.js": "/static/js/main.ffd2bce6.js",
+    "static/media/AlcazarImage.png": "/static/media/AlcazarImage.d836d4a528c315f53e3c.png",
+    "static/media/SkinStoreImage.png": "/static/media/SkinStoreImage.6d3a5af953739d6c36bf.png",
+    "static/media/TindogImage.png": "/static/media/TindogImage.dddfe10424e78d1c4f6f.png",
+    "static/media/Resume.pdf": "/static/media/Resume.1518c440e8c5fa776292.pdf",
+    "static/media/Avatar.png": "/static/media/Avatar.fa312ccf8f85946c64d0.png",
+    "index.html": "/index.html",
+    "main.db3eca93.css.map": "/static/css/main.db3eca93.css.map",
+    "main.ffd2bce6.js.map": "/static/js/main.ffd2bce6.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.db3eca93.css",
+    "static/js/main.ffd2bce6.js"
+  ]
+}
