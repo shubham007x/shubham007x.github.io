@@ -99,6 +99,7 @@ const Nav = () => {
               }}
               download="Shubham Agdari Resume pdf"
               href={pdf}
+              class="nav-link resume"
             >
               Resume <FaDownload />
             </a>

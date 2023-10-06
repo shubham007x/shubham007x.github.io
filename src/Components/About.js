@@ -9,7 +9,7 @@ const About = () => {
     <section className="AboutPage about section" id="about">
       <div className="AboutText">
         <h1 className="AboutTextHeading main-title">About Me</h1>
-        <p>
+        <p id="user-detail-intro">
           Hi, i am <b>Shubham Agdari</b> and I am from Chandrapur, India. I'm a{" "}
           <b>MERN stack web developer</b> and a working professional currently
           working as <b>Sr.Analyst</b> in <b>Capgemini Technology</b>. <br />
