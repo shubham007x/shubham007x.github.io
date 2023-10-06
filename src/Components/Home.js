@@ -22,7 +22,11 @@ const Home = () => {
           <Typed />
         </div>
 
-        <Lottie className="illustration" animationData={SpaceBoy} loop={true} />
+        <Lottie
+          className="illustration home-img"
+          animationData={SpaceBoy}
+          loop={true}
+        />
       </div>
 
       <div className="AboutPage" id="user-detail-intro">

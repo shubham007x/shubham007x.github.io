@@ -40,14 +40,12 @@ const Github = () => {
       <div className="stats-third">
         <div className="github-info-card">
           <h4>Github Calendar</h4>
-          <p>
-            <img
-              className="react-activity-calendar"
-              src="http://ghchart.rshah.org/shubham007x"
-              alt="  calender"
-            />
-            0
-          </p>
+
+          <img
+            className="react-activity-calendar"
+            src="http://ghchart.rshah.org/shubham007x"
+            alt="  calender"
+          />
         </div>
       </div>
     </div>
