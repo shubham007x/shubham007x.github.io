@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/shubham007x.github.io/static/css/main.db3eca93.css",
-    "main.js": "/shubham007x.github.io/static/js/main.b9605d22.js",
+    "main.js": "/shubham007x.github.io/static/js/main.752541c5.js",
     "static/media/AlcazarImage.png": "/shubham007x.github.io/static/media/AlcazarImage.d836d4a528c315f53e3c.png",
     "static/media/SkinStoreImage.png": "/shubham007x.github.io/static/media/SkinStoreImage.6d3a5af953739d6c36bf.png",
     "static/media/TindogImage.png": "/shubham007x.github.io/static/media/TindogImage.dddfe10424e78d1c4f6f.png",
@@ -9,10 +9,10 @@
     "static/media/Avatar.png": "/shubham007x.github.io/static/media/Avatar.fa312ccf8f85946c64d0.png",
     "index.html": "/shubham007x.github.io/index.html",
     "main.db3eca93.css.map": "/shubham007x.github.io/static/css/main.db3eca93.css.map",
-    "main.b9605d22.js.map": "/shubham007x.github.io/static/js/main.b9605d22.js.map"
+    "main.752541c5.js.map": "/shubham007x.github.io/static/js/main.752541c5.js.map"
   },
   "entrypoints": [
     "static/css/main.db3eca93.css",
-    "static/js/main.b9605d22.js"
+    "static/js/main.752541c5.js"
   ]
 }
