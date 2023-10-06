@@ -7,9 +7,12 @@ import Coder from "../LottieFiles/coder.json";
 const About = () => {
   return (
     <section className="AboutPage about section" id="about">
-      <div className="AboutText">
+      <br></br>
+      <br></br>
+      <br></br>
+      <div className="AboutText" id="user-detail-intro">
         <h1 className="AboutTextHeading main-title">About Me</h1>
-        <p id="user-detail-intro">
+        <p>
           Hi, i am <b>Shubham Agdari</b> and I am from Chandrapur, India. I'm a{" "}
           <b>MERN stack web developer</b> and a working professional currently
           working as <b>Sr.Analyst</b> in <b>Capgemini Technology</b>. <br />

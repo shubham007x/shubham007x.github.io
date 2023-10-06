@@ -37,7 +37,7 @@ const ProjectBox = ({ projectPhoto, projectName }) => {
         <br />
         <h3 className="project-title">{projectName}</h3>
         <br />
-        <p>{desc[projectName + "Desc"]}</p>
+        <p className="project-description">{desc[projectName + "Desc"]}</p>
 
         <br />
         <p className="project-tech-stack"></p>
