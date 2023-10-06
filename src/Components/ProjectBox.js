@@ -35,7 +35,7 @@ const ProjectBox = ({ projectPhoto, projectName }) => {
       <img className="projectPhoto" src={projectPhoto} alt="Project display" />
       <div>
         <br />
-        <h3>{projectName}</h3>
+        <h3 className="project-title">{projectName}</h3>
         <br />
         {desc[projectName + "Desc"]}
         <br />

@@ -97,7 +97,7 @@ const Nav = () => {
                 fontSize: "Large",
               }}
             >
-              <a href={pdf} download="Resume">
+              <a href={pdf} download="Resume" target="_blank">
                 <FaDownload />
               </a>
             </button>
