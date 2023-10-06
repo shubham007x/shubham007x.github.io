@@ -33,10 +33,26 @@ const About = () => {
           contribute and grow. Feel free to connect with me, links are in the
           footer.
           <br />
-          <a id="resume-link-2" href={pdf} download="Shubham Agdari Resume">
-            Resume <FaDownload />
-          </a>
-          <button id="resume-button-2"></button>
+          <button
+            id="resume-button-2"
+            style={{
+              background: "transparent",
+              color: "white",
+              border: "0px solid white",
+              fontSize: "Large",
+            }}
+          >
+            <a
+              href={pdf}
+              id="resume-link-2"
+              target="_blank"
+              class="nav-link resume"
+              onClick={() => window.open(pdf)}
+              download="Shubham Resume"
+            >
+              Resume <FaDownload />
+            </a>
+          </button>
         </p>
       </div>
 

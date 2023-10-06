@@ -94,12 +94,12 @@ const Nav = () => {
             }}
           >
             <a
-              onClick={() => {
-                navigate("/resume");
-              }}
-              download="Shubham Agdari Resume pdf"
               href={pdf}
+              id="resume-link-1"
+              target="_blank"
               class="nav-link resume"
+              onClick={() => window.open(pdf)}
+              download="Shubham Resume"
             >
               Resume <FaDownload />
             </a>
