@@ -32,7 +32,7 @@ const Github = () => {
             <img
               src="https://github-readme-stats.vercel.app/api?username=shubham007x&show_icons=true&theme=radical"
               id="github-stats-card"
-              alt=""
+              alt="calender"
             />
           </div>
         </div>
@@ -40,11 +40,14 @@ const Github = () => {
       <div className="stats-third">
         <div className="github-info-card">
           <h4>Github Calendar</h4>
-          <img
-            className="react-activity-calendar"
-            src="http://ghchart.rshah.org/shubham007x"
-            alt=""
-          />
+          <p>
+            <img
+              className="react-activity-calendar"
+              src="http://ghchart.rshah.org/shubham007x"
+              alt="  calender"
+            />
+            0
+          </p>
         </div>
       </div>
     </div>

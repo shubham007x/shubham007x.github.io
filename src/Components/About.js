@@ -3,6 +3,7 @@ import Skills from "./Skills.js";
 import Tilt from "react-parallax-tilt";
 import Lottie from "lottie-react";
 import Coder from "../LottieFiles/coder.json";
+import { BsBootstrap } from "react-icons/bs";
 
 const About = () => {
   return (
@@ -14,8 +15,12 @@ const About = () => {
         <h1 className="AboutTextHeading main-title">About Me</h1>
         <p>
           Hi, i am <b>Shubham Agdari</b> and I am from Chandrapur, India. I'm a{" "}
-          <b>MERN stack web developer</b> and a working professional currently
-          working as <b>Sr.Analyst</b> in <b>Capgemini Technology</b>. <br />
+          <b>
+            Proficient in MERN Stack
+            JavaScript,Java,HTML,CSS,Bootstrap,Express,Node,MongoDB
+          </b>{" "}
+          and a working professional currently working as <b>Sr.Analyst</b> in{" "}
+          <b>Capgemini Technology</b>. <br />
           <br />I have completed my <b>B.Tech</b> in{" "}
           <b>Electronic and Telecommunication</b> from{" "}
           <b>GH Raisoni college of Engineering Nagpur</b> I love to create
