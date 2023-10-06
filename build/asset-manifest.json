@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/static/css/main.eb420393.css",
-    "main.js": "/static/js/main.fa99e652.js",
+    "main.js": "/static/js/main.d8bf5e9c.js",
     "static/media/HoneyStoreImage.png": "/static/media/HoneyStoreImage.b83a2bec506396c2b009.png",
     "static/media/AlcazarImage.png": "/static/media/AlcazarImage.d836d4a528c315f53e3c.png",
     "static/media/SkinStoreImage.png": "/static/media/SkinStoreImage.6d3a5af953739d6c36bf.png",
@@ -10,10 +10,10 @@
     "static/media/Avatar.png": "/static/media/Avatar.fa312ccf8f85946c64d0.png",
     "index.html": "/index.html",
     "main.eb420393.css.map": "/static/css/main.eb420393.css.map",
-    "main.fa99e652.js.map": "/static/js/main.fa99e652.js.map"
+    "main.d8bf5e9c.js.map": "/static/js/main.d8bf5e9c.js.map"
   },
   "entrypoints": [
     "static/css/main.eb420393.css",
-    "static/js/main.fa99e652.js"
+    "static/js/main.d8bf5e9c.js"
   ]
 }
