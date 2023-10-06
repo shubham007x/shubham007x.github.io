@@ -2,7 +2,7 @@ import React from "react";
 import { FaGithub } from "react-icons/fa";
 import { CgFileDocument } from "react-icons/cg";
 
-const ProjectBox = ({ projectPhoto, projectName }) => {
+const ProjectBox = ({ projectPhoto, projectName, stack }) => {
   const desc = {
     TindogDesc:
       "This website is a landing page of Tinder but for dogs. It is a responsive website which was made to understand Bootstrap. I also learned how to host my project on Github and then how to deploy that project using Github pages.",
@@ -40,7 +40,7 @@ const ProjectBox = ({ projectPhoto, projectName }) => {
         <p className="project-description">{desc[projectName + "Desc"]}</p>
 
         <br />
-        <p className="project-tech-stack"></p>
+        <p className="project-tech-stack">{stack}</p>
         <a
           style={{ display: show }}
           href={desc[projectName + "Github"]}

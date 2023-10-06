@@ -12,10 +12,26 @@ const Projects = () => {
         My <b>Projects</b>
       </h1>
       <div className="project">
-        <ProjectBox projectPhoto={AlcazarImage} projectName="Alcazar" />
-        <ProjectBox projectPhoto={HoneyStoreImage} projectName="HoneyStore" />
-        <ProjectBox projectPhoto={SkinStoreImage} projectName="SkinStore" />
-        <ProjectBox projectPhoto={TindogImage} projectName="Tindog" />
+        <ProjectBox
+          projectPhoto={AlcazarImage}
+          stack={["HTML ", "CSS ", "JS ", "BS"]}
+          projectName="Alcazar"
+        />
+        <ProjectBox
+          projectPhoto={HoneyStoreImage}
+          stack={["REACT ", "CSS ", "Redux ", ""]}
+          projectName="HoneyStore"
+        />
+        <ProjectBox
+          projectPhoto={SkinStoreImage}
+          stack={["HTML ", "CSS ", "JS "]}
+          projectName="SkinStore"
+        />
+        <ProjectBox
+          projectPhoto={TindogImage}
+          stack={["HTML ", "CSS ", "BS"]}
+          projectName="Tindog"
+        />
       </div>
     </section>
   );
