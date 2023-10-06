@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AiOutlineHome } from "react-icons/ai";
 import { BsPerson, BsCodeSlash } from "react-icons/bs";
 import { CgFileDocument } from "react-icons/cg";
@@ -10,7 +10,7 @@ import pdf from "../Resume.pdf";
 import Resume from "./Resume";
 const Nav = () => {
   const [navbarblur, setnavbarblur] = useState(false);
-
+  const navigate = useNavigate();
   function scrollHandler() {
     if (window.scrollY >= 20) {
       setnavbarblur(true);
@@ -82,11 +82,7 @@ const Nav = () => {
             Contact
           </a>
         </li>
-        <li onClick={hideMenu}>
-          <a href={pdf} target="_blank" id="resume-link-1">
-            Resume
-          </a>
-        </li>
+
         <li onClick={hideMenu}>
           <button
             id="resume-button-1"
@@ -97,9 +93,14 @@ const Nav = () => {
               fontSize: "Large",
             }}
           >
-            <a download="Shubham Agdari Resume pdf" href={pdf}>
-              {" "}
-              <FaDownload />
+            <a
+              onClick={() => {
+                navigate("/resume");
+              }}
+              download="Shubham Agdari Resume pdf"
+              href={pdf}
+            >
+              Resume <FaDownload />
             </a>
           </button>
         </li>

@@ -37,9 +37,19 @@ const Home = () => {
             <br />I plan to learn <b>Next.js</b> in the near future. <br />
             <br />
           </p>
+          <a
+            id="resume-link-2"
+            onClick={() => {
+              navigate("/resume");
+            }}
+            download="Shubham Agdari Resume pdf"
+            href={pdf}
+          >
+            Resume <FaDownload />
+          </a>
         </div>
         <Tilt>
-          <img className="Avatar" src={Avatar} alt="" />
+          <img className="Avatar home-img" src={Avatar} alt="" />
         </Tilt>
       </div>
     </section>

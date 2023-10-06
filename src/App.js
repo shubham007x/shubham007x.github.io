@@ -14,6 +14,7 @@ import Projects from "./Components/Projects";
 import Skills from "./Components/Skills";
 import SkillSection from "./Components/SkillSection";
 import Contact from "./Components/Contact";
+import Github from "./Components/Github";
 
 function App() {
   const [Loading, SetLoading] = useState(true);
@@ -44,14 +45,25 @@ function App() {
       <Lottie className="bgtwo" animationData={nightsky} loop={true} />
       <Lottie className="bgtemp" animationData={nightsky} loop={true} />
 
-      <Nav />
-      <Home />
-      <About />
-      <SkillSection />
-      <Project />
-      <Contact />
-
-      <Footer />
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <div>
+              {" "}
+              <Nav />
+              <Home />
+              <About />
+              <Github />
+              <SkillSection />
+              <Project />
+              <Contact />
+              <Footer />
+            </div>
+          }
+        />
+        <Route path="/resume" element={<Resume />} />
+      </Routes>
     </div>
     // )}
     // </>

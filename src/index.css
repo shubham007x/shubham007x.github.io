@@ -573,3 +573,39 @@ footer h4 {
     width: 50%; /* Make image full width within its container */
   }
 }
+
+.github-info-wrapper > h1 {
+  font-size: 2.2rem;
+  text-align: center;
+  font-weight: bold;
+}
+.stats-block {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 4rem;
+  margin-top: 3rem;
+}
+.stats-second > div {
+  flex-basis: 33%;
+}
+.stats-second #github-top-langs {
+  width: 70%;
+}
+.stats-third {
+  margin: auto;
+  margin-top: 4rem;
+}
+.stats-third h4 {
+  text-align: center;
+}
+.stats-third img {
+  display: block;
+  margin: auto;
+  margin-top: 0.5rem;
+  height: 12rem;
+  width: 65%;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  padding: 2rem;
+  border-radius: 15px;
+}

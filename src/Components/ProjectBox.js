@@ -22,7 +22,7 @@ const ProjectBox = ({ projectPhoto, projectName }) => {
     AlcazarDesc:
       "A website which allow you to browse different location and  book your stays in hotels,it a travel/Hotel Booking website",
     AlcazarGithub: "https://github.com/shubham007x/Alcazar-Travel-Agency",
-    AlcazarWebsite: "https://shubham007x.github.io/Alcazar-Travel-Agency/",
+    AlcazarWebsite: "https://alcazar-masai.netlify.app/",
   };
 
   let show = "";
@@ -37,7 +37,8 @@ const ProjectBox = ({ projectPhoto, projectName }) => {
         <br />
         <h3 className="project-title">{projectName}</h3>
         <br />
-        {desc[projectName + "Desc"]}
+        <p className="project-description">{desc[projectName + "Desc"]}</p>
+
         <br />
         <p className="project-tech-stack"></p>
         <a

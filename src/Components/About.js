@@ -8,9 +8,7 @@ const About = () => {
   return (
     <section className="AboutPage about section" id="about">
       <div className="AboutText">
-        <h1 className="AboutTextHeading">
-          Get to <b>know</b> me!
-        </h1>
+        <h1 className="AboutTextHeading main-title">About Me</h1>
         <p>
           Hi, i am <b>Shubham Agdari</b> and I am from Chandrapur, India. I'm a{" "}
           <b>MERN stack web developer</b> and a working professional currently
