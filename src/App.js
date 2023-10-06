@@ -27,33 +27,34 @@ function App() {
   }, []);
 
   return (
-    <>
-      {Loading ? (
-        <div className="loader">
-          <HashLoader
-            color={"#9067C6"}
-            loading={true}
-            size={100}
-            aria-label="Loading Spinner"
-            data-testid="loader"
-          />
-        </div>
-      ) : (
-        <div>
-          <Lottie className="bg" animationData={nightsky} loop={true} />
-          <Lottie className="bgtwo" animationData={nightsky} loop={true} />
-          <Lottie className="bgtemp" animationData={nightsky} loop={true} />
+    // <>
+    //   {Loading ? (
+    //     <div className="loader">
+    //       <HashLoader
+    //         color={"#9067C6"}
+    //         loading={true}
+    //         size={100}
+    //         aria-label="Loading Spinner"
+    //         data-testid="loader"
+    //       />
+    //     </div>
+    //   ) : (
+    <div>
+      <Lottie className="bg" animationData={nightsky} loop={true} />
+      <Lottie className="bgtwo" animationData={nightsky} loop={true} />
+      <Lottie className="bgtemp" animationData={nightsky} loop={true} />
 
-          <Nav />
-          <Home />
-          <About />
-          <SkillSection />
-          <Project />
-          <Contact />
-          <Footer />
-        </div>
-      )}
-    </>
+      <Nav />
+      <Home />
+      <About />
+      <SkillSection />
+      <Project />
+      <Contact />
+
+      <Footer />
+    </div>
+    // )}
+    // </>
   );
 }
 

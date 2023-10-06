@@ -2,6 +2,7 @@ import React from "react";
 import ProjectBox from "./ProjectBox";
 import AlcazarImage from "../images/AlcazarImage.png";
 import SkinStoreImage from "../images/SkinStoreImage.png";
+import HoneyStoreImage from "../images/HoneyStoreImage.png";
 import TindogImage from "../images/TindogImage.png";
 
 const Projects = () => {
@@ -12,7 +13,7 @@ const Projects = () => {
       </h1>
       <div className="project">
         <ProjectBox projectPhoto={AlcazarImage} projectName="Alcazar" />
-        <ProjectBox projectPhoto={SkinStoreImage} projectName="HoneyStore" />
+        <ProjectBox projectPhoto={HoneyStoreImage} projectName="HoneyStore" />
         <ProjectBox projectPhoto={SkinStoreImage} projectName="SkinStore" />
         <ProjectBox projectPhoto={TindogImage} projectName="Tindog" />
       </div>

@@ -12,7 +12,7 @@ const ProjectBox = ({ projectPhoto, projectName }) => {
     HoneyStoreDesc:
       "A website that has Honey Products made Using React,which is responsive and has a Beautiful UI ",
     HoneyStoreGithub: "https://github.com/shubham007x/Honey-Store",
-    HoneyStoreWebsite: "www.google.com",
+    HoneyStoreWebsite: "https://github.com/shubham007x/Honey-Store#readme",
 
     SkinStoreDesc:
       "An Commerce website made using HTML CSS JS which has Different Skin Products ",

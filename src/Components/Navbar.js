@@ -88,20 +88,20 @@ const Nav = () => {
           </a>
         </li>
         <li onClick={hideMenu}>
-          <a href="#resume" className="nav-link resume " id="resume-link-2">
-            <button
-              style={{
-                background: "transparent",
-                color: "white",
-                border: "0px solid white",
-                fontSize: "Large",
-              }}
-            >
-              <a href={pdf} download="Resume" target="_blank">
-                <FaDownload />
-              </a>
-            </button>
-          </a>
+          <button
+            id="resume-button-1"
+            style={{
+              background: "transparent",
+              color: "white",
+              border: "0px solid white",
+              fontSize: "Large",
+            }}
+          >
+            <a download="Shubham Agdari Resume pdf" href={pdf}>
+              {" "}
+              <FaDownload />
+            </a>
+          </button>
         </li>
       </ul>
     </nav>
