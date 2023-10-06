@@ -5,8 +5,12 @@ import Typed from "./Typed.js";
 import Tilt from "react-parallax-tilt";
 import Avatar from "../images/Avatar.png";
 import { CiCoffeeCup } from "react-icons/ci";
+import { useNavigate } from "react-router-dom";
+import pdf from "../Resume.pdf";
+import { FaDownload } from "react-icons/fa";
 
 const Home = () => {
+  const navigate = useNavigate();
   return (
     <section id="home">
       <div className="HomePage">
