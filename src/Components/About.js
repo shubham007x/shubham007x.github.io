@@ -36,6 +36,7 @@ const About = () => {
           <a id="resume-link-2" href={pdf} download="Shubham Agdari Resume">
             Resume <FaDownload />
           </a>
+          <button id="resume-button-2"></button>
         </p>
       </div>
 
