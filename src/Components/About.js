@@ -4,6 +4,8 @@ import Tilt from "react-parallax-tilt";
 import Lottie from "lottie-react";
 import Coder from "../LottieFiles/coder.json";
 import { BsBootstrap } from "react-icons/bs";
+import { FaDownload } from "react-icons/fa";
+import pdf from "../Resume.pdf";
 
 const About = () => {
   return (
@@ -31,6 +33,9 @@ const About = () => {
           contribute and grow. Feel free to connect with me, links are in the
           footer.
           <br />
+          <a id="resume-link-2" href={pdf} download="Shubham Agdari Resume">
+            Resume <FaDownload />
+          </a>
         </p>
       </div>
 

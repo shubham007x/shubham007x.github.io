@@ -45,9 +45,6 @@ const Home = () => {
             <br />I plan to learn <b>Next.js</b> in the near future. <br />
             <br />
           </p>
-          <a id="resume-link-2" href={pdf} download="Shubham Agdari Resume">
-            Resume <FaDownload />
-          </a>
         </div>
         <Tilt>
           <img className="Avatar" src={Avatar} alt="" />
