@@ -99,11 +99,7 @@ const Nav = () => {
               target="_blank"
               class="nav-link resume"
               onClick={() => window.open(pdf)}
-<<<<<<< HEAD
               download="Shubham-Agdari-Resume"
-=======
-              download="Shubham-Agdar-Resume"
->>>>>>> 4b3ba8897726ede853b4e3f0f9060eea51fd2091
             >
               Resume <FaDownload />
             </a>
