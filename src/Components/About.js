@@ -2,10 +2,12 @@ import React from "react";
 import Skills from "./Skills.js";
 import Tilt from "react-parallax-tilt";
 import Lottie from "lottie-react";
+import { pro } from "../Components/pro.jsx";
 import Coder from "../LottieFiles/coder.json";
 import { BsBootstrap } from "react-icons/bs";
 import { FaDownload } from "react-icons/fa";
 import pdf from "../Resume.pdf";
+import alcazarImage from "../images/shubham.png";
 
 const About = () => {
   return (
@@ -13,6 +15,9 @@ const About = () => {
       <br></br>
       <br></br>
       <br></br>
+      <div>
+        <img src={alcazarImage} alt="Alcazar"></img>
+      </div>
       <div className="AboutText" id="user-detail-intro">
         <h1 className="AboutTextHeading main-title">About Me</h1>
         <p>
@@ -48,7 +53,7 @@ const About = () => {
               target="_blank"
               class="nav-link resume"
               onClick={() => window.open(pdf)}
-              download="Shubham Resume"
+              download="Shubham-Agdari-Resume"
             >
               Resume <FaDownload />
             </a>
@@ -57,9 +62,7 @@ const About = () => {
       </div>
 
       <div>
-        <Tilt>
-          <Lottie className="illustration" animationData={Coder} loop={true} />
-        </Tilt>
+        <pro />
       </div>
     </section>
   );
