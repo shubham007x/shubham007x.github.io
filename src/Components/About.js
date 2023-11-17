@@ -48,7 +48,7 @@ const About = () => {
               target="_blank"
               class="nav-link resume"
               onClick={() => window.open(pdf)}
-              download="Shubham Resume"
+              download="Shubham-Agdari-Resume"
             >
               Resume <FaDownload />
             </a>
