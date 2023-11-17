@@ -21,7 +21,7 @@ const ProjectBox = ({ projectPhoto, projectName, stack }) => {
 
     AlcazarDesc:
       "A website which allow you to browse different location and  book your stays in hotels,it a travel/Hotel Booking website",
-    AlcazarGithub: "https://github.com/shubham007x/Alcazar-Travel-Agency",
+    AlcazarGithub: "https://github.com/shubham007x/Alcazar",
     AlcazarWebsite: "https://alcazar-masai.netlify.app/",
   };
 
