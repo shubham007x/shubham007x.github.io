@@ -16,7 +16,7 @@ const About = () => {
       <br></br>
       <br></br>
       <div>
-        <img src={alcazarImage} alt="Alcazar"></img>
+        <img src={alcazarImage} style={{ width: "50%" }} alt="Alcazar"></img>
       </div>
       <div className="AboutText" id="user-detail-intro">
         <h1 className="AboutTextHeading main-title">About Me</h1>
