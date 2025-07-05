@@ -4,6 +4,7 @@ import AlcazarImage from "../images/AlcazarImage.png";
 import SkinStoreImage from "../images/SkinStoreImage.png";
 import HoneyStoreImage from "../images/HoneyStoreImage.png";
 import TindogImage from "../images/TindogImage.png";
+import QuickShow from "../images/QuickShow.png";
 
 const Projects = () => {
   return (
@@ -12,6 +13,18 @@ const Projects = () => {
         My <b>Projects</b>
       </h1>
       <div className="project">
+        <ProjectBox
+          projectPhoto={QuickShow}
+          stack={[
+            "ReactJs",
+            "NodeJs ",
+            "Tailwind ",
+            "Express.js",
+            "Clerk",
+            "Inngest",
+          ]}
+          projectName="QuickShow"
+        />
         <ProjectBox
           projectPhoto={AlcazarImage}
           stack={["HTML ", "CSS ", "JS ", "BS"]}

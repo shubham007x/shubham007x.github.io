@@ -10,48 +10,66 @@ const ProjectBox = ({ projectPhoto, projectName, stack }) => {
     TindogWebsite: "https://shubham007x.github.io/TinDog/",
 
     HoneyStoreDesc:
-      "A website that has Honey Products made Using React,which is responsive and has a Beautiful UI ",
+      "A website that has Honey Products made Using React, which is responsive and has a beautiful UI.",
     HoneyStoreGithub: "https://github.com/shubham007x/Honey-Store",
     HoneyStoreWebsite: "https://github.com/shubham007x/Honey-Store#readme",
 
     SkinStoreDesc:
-      "An Commerce website made using HTML CSS JS which has Different Skin Products ",
+      "An eCommerce website made using HTML, CSS, and JS that showcases various skincare products.",
     SkinStoreGithub: "https://github.com/shubham007x/Skin-Store",
     SkinStoreWebsite: "https://zesty-treacle-bc219d.netlify.app/",
 
     AlcazarDesc:
-      "A website which allow you to browse different location and  book your stays in hotels,it a travel/Hotel Booking website",
+      "A travel and hotel booking website that lets users explore locations and book stays. Built with a focus on clean UI and responsiveness.",
     AlcazarGithub: "https://github.com/shubham007x/Alcazar",
     AlcazarWebsite: "https://alcazar-masai.netlify.app/",
+
+    QuickShowDesc:
+      "QuickShow is a full-stack movie and show ticket booking application. It includes user authentication, real-time seat selection, admin dashboard, and dynamic ticket availability.",
+    QuickShowGithub: "https://github.com/shubham007x/QuickShow",
+    QuickShowWebsite: "https://quickshow-client-gray.vercel.app/",
   };
 
-  let show = "";
-  if (desc[projectName + "Github"] === "") {
+  let show = "inline";
+  if (!desc[projectName + "Github"]) {
     show = "none";
   }
 
   return (
     <div className="projectBox project-card">
-      <img className="projectPhoto" src={projectPhoto} alt="Project display" />
+      <img
+        className="projectPhoto"
+        src={projectPhoto}
+        alt={`${projectName} project display`}
+      />
       <div>
         <br />
         <h3 className="project-title">{projectName}</h3>
         <br />
-        <p className="project-description">{desc[projectName + "Desc"]}</p>
+        <p className="project-description">
+          {desc[projectName + "Desc"] || "Description not available."}
+        </p>
 
         <br />
-        <p className="project-tech-stack">{stack}</p>
+        <p className="project-tech-stack">
+          {Array.isArray(stack) ? stack.join(", ") : stack}
+        </p>
         <a
           style={{ display: show }}
           href={desc[projectName + "Github"]}
           target="_blank"
+          rel="noopener noreferrer"
         >
           <button className="projectbtn project-github-link">
             <FaGithub /> Github
           </button>
         </a>
 
-        <a href={desc[projectName + "Website"]} target="_blank">
+        <a
+          href={desc[projectName + "Website"]}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           <button className="projectbtn project-deployed-link">
             <CgFileDocument /> Demo
           </button>
