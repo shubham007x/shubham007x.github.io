@@ -46,7 +46,7 @@ export default function Experience() {
       title: 'Frontend Developer',
       company: 'Futy',
       location: 'Remote',
-      period: 'May 2024 - August 2024',
+      period: 'May 2025 - August 2025',
       description: [
         'Built reusable and responsive UI components using React, TypeScript, and Tailwind CSS',
         'Integrated REST APIs for real-time updates with low latency',
@@ -170,4 +170,5 @@ export default function Experience() {
     </section>
   );
 }
+
 
