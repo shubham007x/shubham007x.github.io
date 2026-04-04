@@ -7,15 +7,13 @@ import Contact from "./components/Contact";
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-white dark:bg-gray-900">
-      <main>
-        <Hero />
-        <About />
-        <Skills />
-        <Projects />
-        <Experience />
-        <Contact />
-      </main>
-    </div>
+    <main>
+      <Hero />
+      <About />
+      <Skills />
+      <Projects />
+      <Experience />
+      <Contact />
+    </main>
   );
 }

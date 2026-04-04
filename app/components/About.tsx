@@ -1,190 +1,229 @@
 'use client';
 
-import { motion } from 'framer-motion';
-import { useInView } from 'framer-motion';
 import { useRef } from 'react';
+import { motion, useInView } from 'framer-motion';
 import Image from 'next/image';
 import CountUp from '@/components/CountUp';
+
+/* ─── Unique stat icons (custom geometric paths) ─── */
+const CalendarGlyph = () => (
+  <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+    <rect x="2" y="5" width="24" height="21" rx="2" stroke="currentColor" strokeWidth="1.5" />
+    <path d="M2 11h24" stroke="currentColor" strokeWidth="1.5" />
+    <path d="M8 2v6M20 2v6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+    <rect x="7" y="15" width="4" height="4" rx="1" fill="currentColor" opacity="0.5" />
+    <rect x="12" y="15" width="4" height="4" rx="1" fill="currentColor" opacity="0.5" />
+    <rect x="17" y="15" width="4" height="4" rx="1" fill="currentColor" opacity="0.5" />
+  </svg>
+);
+
+const RocketGlyph = () => (
+  <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+    <path d="M14 3C14 3 20 6 20 14C20 18 18 22 14 25C10 22 8 18 8 14C8 6 14 3 14 3Z"
+      stroke="currentColor" strokeWidth="1.5" fill="none" />
+    <circle cx="14" cy="14" r="2.5" fill="currentColor" opacity="0.6" />
+    <path d="M8 17L5 22L10 20" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+    <path d="M20 17L23 22L18 20" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+  </svg>
+);
+
+const CircuitGlyph = () => (
+  <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+    <rect x="3" y="3" width="8" height="8" rx="2" stroke="currentColor" strokeWidth="1.5" />
+    <rect x="17" y="3" width="8" height="8" rx="2" stroke="currentColor" strokeWidth="1.5" />
+    <rect x="3" y="17" width="8" height="8" rx="2" stroke="currentColor" strokeWidth="1.5" />
+    <rect x="17" y="17" width="8" height="8" rx="2" stroke="currentColor" strokeWidth="1.5" />
+    <path d="M11 7h6M7 11v6M21 11v6M11 21h6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+  </svg>
+);
+
+const BuildingGlyph = () => (
+  <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+    <rect x="4" y="8" width="20" height="17" rx="1" stroke="currentColor" strokeWidth="1.5" />
+    <path d="M9 25V19h4v6M15 25V19h4v6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+    <path d="M4 12h20" stroke="currentColor" strokeWidth="1.5" />
+    <path d="M10 3l4 5 4-5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+    <circle cx="9" cy="16" r="1" fill="currentColor" opacity="0.5" />
+    <circle cx="19" cy="16" r="1" fill="currentColor" opacity="0.5" />
+  </svg>
+);
+
+const container = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.12 } },
+};
+const fadeUp = {
+  hidden:  { opacity: 0, y: 32 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.55, ease: 'easeOut' as const } },
+};
+
+const stats = [
+  { value: 4,  suffix: '+', label: 'Years of experience', Icon: CalendarGlyph },
+  { value: 10, suffix: '+', label: 'Projects delivered',  Icon: RocketGlyph   },
+  { value: 15, suffix: '+', label: 'Technologies',        Icon: CircuitGlyph  },
+  { value: 3,  suffix: '',  label: 'Companies worked at', Icon: BuildingGlyph },
+];
 
 export default function About() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-100px' });
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 50 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.6,
-        ease: 'easeOut' as const,
-      },
-    },
-  };
-
-  const statVariants = {
-    hidden: { opacity: 0, scale: 0.5 },
-    visible: {
-      opacity: 1,
-      scale: 1,
-      transition: {
-        type: 'spring' as const,
-        stiffness: 200,
-        damping: 15,
-      },
-    },
-  };
-
   return (
     <section
-      ref={ref}
       id="about"
-      className="py-16 sm:py-24 md:py-32 bg-[#0a0a0a] border-t-2 border-[#FF6B00]/30 relative overflow-hidden"
+      ref={ref}
+      className="relative overflow-hidden"
+      style={{ background: 'var(--surface-alt)' }}
     >
-      {/* Background decorative elements */}
-      <div className="absolute inset-0 opacity-5">
-        <div className="absolute top-20 left-10 w-72 h-72 bg-[#FF6B00] rounded-full blur-3xl"></div>
-        <div className="absolute bottom-20 right-10 w-96 h-96 bg-[#FF4500] rounded-full blur-3xl"></div>
-      </div>
+      {/* Subtle corner accent */}
+      <div
+        className="absolute top-0 right-0 w-72 h-72 rounded-full blur-3xl opacity-10 pointer-events-none"
+        style={{ background: 'var(--accent)' }}
+      />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div className="max-w-6xl mx-auto px-6 lg:px-8 py-24 md:py-32">
+
+        {/* Section label + heading */}
         <motion.div
-          className="text-center mb-16"
-          initial={{ opacity: 0, y: -50 }}
+          initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.5 }}
+          className="mb-16"
         >
-          <h2 className="text-5xl md:text-6xl lg:text-7xl font-black text-white mb-6 tracking-widest uppercase drop-shadow-[0_0_10px_rgba(255,107,0,0.5)]">
-            ABOUT ME
+          <p className="text-xs font-bold tracking-widest uppercase mb-3" style={{ color: 'var(--accent)' }}>
+            ◆ About
+          </p>
+          <h2
+            className="text-3xl sm:text-4xl md:text-5xl font-black font-heading"
+            style={{ color: 'var(--text-primary)' }}
+          >
+            Who I Am
           </h2>
-          <motion.div
-            className="w-32 h-1 bg-[#FF6B00] mx-auto shadow-[0_0_10px_rgba(255,107,0,0.5)]"
-            initial={{ width: 0 }}
-            animate={isInView ? { width: 128 } : {}}
-            transition={{ duration: 0.8, delay: 0.3 }}
-          ></motion.div>
         </motion.div>
 
-        {/* Main Content - Split Layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center mb-16">
-          {/* Profile Picture - Left Side */}
-          <motion.div 
-            variants={itemVariants}
+        {/* Split layout */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center mb-20">
+
+          {/* Photo */}
+          <motion.div
+            variants={fadeUp}
             initial="hidden"
             animate={isInView ? 'visible' : 'hidden'}
-            className="flex justify-center lg:justify-end order-2 lg:order-1 mb-8 lg:mb-0"
+            className="flex justify-center lg:justify-start"
           >
-            <div className="relative group">
-              {/* Glow effect */}
-              <div className="absolute -inset-2 md:-inset-4 bg-[#FF6B00] rounded-2xl blur-xl opacity-20 group-hover:opacity-30 transition-opacity duration-300"></div>
-              
-              {/* Image container */}
-              <div className="relative w-64 h-64 sm:w-72 sm:h-72 md:w-80 md:h-80 lg:w-96 lg:h-96 rounded-2xl overflow-hidden border-4 border-[#FF6B00] shadow-[0_0_40px_rgba(255,107,0,0.4)] transform group-hover:scale-105 transition-transform duration-300">
+            <div className="relative">
+              {/* Decorative border offset */}
+              <div
+                className="absolute -inset-3 rounded-3xl opacity-30"
+                style={{ border: '1px solid var(--accent)' }}
+              />
+              <div
+                className="absolute -inset-6 rounded-3xl opacity-10"
+                style={{ border: '1px solid var(--accent)' }}
+              />
+
+              <div className="relative w-64 h-64 sm:w-72 sm:h-72 md:w-80 md:h-80 rounded-2xl overflow-hidden"
+                style={{ border: '2px solid var(--border-strong)' }}>
                 <Image
                   src="/images/projects/shubh.png?v=1"
-                  alt="Profile Picture"
+                  alt="Shubham Agdari"
                   fill
                   className="object-cover"
-                  sizes="(max-width: 640px) 256px, (max-width: 768px) 288px, (max-width: 1024px) 320px, 384px"
+                  sizes="(max-width: 640px) 256px, (max-width: 768px) 288px, 320px"
                   priority
                   unoptimized
                 />
-                {/* Overlay gradient */}
-                <div className="absolute inset-0 bg-linear-to-t from-[#0a0a0a]/60 via-transparent to-transparent"></div>
+                {/* Subtle gradient overlay */}
+                <div
+                  className="absolute inset-0"
+                  style={{ background: 'linear-gradient(to bottom, transparent 60%, rgba(0,0,0,0.35) 100%)' }}
+                />
               </div>
-              
-              {/* Decorative corner elements - Hidden on mobile */}
-              <div className="hidden md:block absolute -top-4 -left-4 w-8 h-8 border-t-4 border-l-4 border-[#FF6B00]"></div>
-              <div className="hidden md:block absolute -bottom-4 -right-4 w-8 h-8 border-b-4 border-r-4 border-[#FF6B00]"></div>
+
+              {/* Floating badge */}
+              <div
+                className="absolute -bottom-4 -right-4 px-3 py-1.5 rounded-xl text-xs font-bold"
+                style={{ background: 'var(--accent)', color: '#fff' }}
+              >
+                4+ years
+              </div>
             </div>
           </motion.div>
 
-          {/* Content - Right Side */}
-          <motion.div 
-            variants={itemVariants}
+          {/* Text */}
+          <motion.div
+            variants={container}
             initial="hidden"
             animate={isInView ? 'visible' : 'hidden'}
-            className="order-1 lg:order-2"
+            className="space-y-5"
           >
-            <motion.h3 
-              className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black text-[#FF6B00] mb-6 md:mb-8 tracking-widest uppercase"
-              variants={itemVariants}
+            <motion.h3
+              variants={fadeUp}
+              className="text-2xl sm:text-3xl font-bold font-heading"
+              style={{ color: 'var(--text-primary)' }}
             >
-              WHO I AM
+              Electronics Engineer<br />turned <span className="gradient-text">Software Developer</span>
             </motion.h3>
-            
-            <div className="space-y-4 md:space-y-6 mb-8 md:mb-10">
-              <motion.p
-                className="text-base sm:text-lg md:text-xl text-gray-300 leading-relaxed font-medium"
-                variants={itemVariants}
-              >
-                I'M AN <span className="text-[#FF6B00] font-bold">ELECTRONICS AND TELECOMMUNICATION ENGINEER</span> TURNED <span className="text-[#FF6B00] font-bold">SOFTWARE DEVELOPMENT ENGINEER</span> WITH A STRONG FOUNDATION IN ENGINEERING AND A LOVE FOR SOLVING COMPLEX PROBLEMS.
-              </motion.p>
-              <motion.p
-                className="text-lg md:text-xl text-gray-300 leading-relaxed font-medium"
-                variants={itemVariants}
-              >
-                WITH EXPERTISE IN MODERN WEB TECHNOLOGIES, I SPECIALIZE IN BUILDING SCALABLE APPLICATIONS THAT DELIVER EXCEPTIONAL USER EXPERIENCES.
-              </motion.p>
-              <motion.p
-                className="text-lg md:text-xl text-gray-300 leading-relaxed font-medium"
-                variants={itemVariants}
-              >
-                MY JOURNEY IN SOFTWARE DEVELOPMENT HAS BEEN DRIVEN BY CURIOSITY AND A COMMITMENT TO CONTINUOUS LEARNING. I ENJOY WORKING WITH CUTTING-EDGE TECHNOLOGIES AND CONTRIBUTING TO OPEN-SOURCE PROJECTS.
-              </motion.p>
-            </div>
+
+            <motion.p variants={fadeUp} className="text-base leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
+              I&apos;m a Software Development Engineer with a foundation in Electronics &amp; Telecommunication
+              engineering and a passion for crafting scalable, high-performance web applications.
+            </motion.p>
+            <motion.p variants={fadeUp} className="text-base leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
+              Specializing in React, Next.js, and TypeScript, I bring both technical depth and design
+              sensibility to every project — from rapid prototypes to enterprise-grade platforms.
+            </motion.p>
+            <motion.p variants={fadeUp} className="text-base leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
+              My journey spans across companies like Wantace, Futy, and Capgemini, where I&apos;ve built
+              real-time UIs, integrated complex APIs, and worked in cross-functional agile teams.
+            </motion.p>
+
+            {/* Tech chips */}
+            <motion.div variants={fadeUp} className="flex flex-wrap gap-2 pt-2">
+              {['React', 'Next.js', 'TypeScript', 'Node.js', 'Tailwind CSS'].map((tech) => (
+                <span
+                  key={tech}
+                  className="px-3 py-1 rounded-full text-sm font-semibold border"
+                  style={{
+                    color: 'var(--accent)',
+                    borderColor: 'var(--accent-bg)',
+                    background: 'var(--accent-bg)',
+                  }}
+                >
+                  {tech}
+                </span>
+              ))}
+            </motion.div>
           </motion.div>
         </div>
 
-        {/* Stats Section - Full Width Below */}
+        {/* Stats grid */}
         <motion.div
-          className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6"
-          variants={containerVariants}
+          className="grid grid-cols-2 lg:grid-cols-4 gap-4"
+          variants={container}
           initial="hidden"
           animate={isInView ? 'visible' : 'hidden'}
         >
-          {[
-            { number: 4, suffix: '+', label: 'Years Experience', icon: '🎯' },
-            { number: 10, suffix: '+', label: 'Projects Completed', icon: '🚀' },
-            { number: 15, suffix: '+', label: 'Technologies', icon: '⚡' },
-            { number: 3, suffix: '', label: 'Companies', icon: '💼' },
-          ].map((stat, index) => (
+          {stats.map(({ value, suffix, label, Icon }, i) => (
             <motion.div
-              key={index}
-              className="group relative p-6 md:p-8 border-2 border-[#FF6B00]/50 bg-[#050505] shadow-[0_0_15px_rgba(255,107,0,0.2)] hover:border-[#FF6B00] hover:shadow-[0_0_25px_rgba(255,107,0,0.4)] transition-all duration-300"
-              variants={statVariants}
-              whileHover={{ scale: 1.05, y: -8 }}
+              key={i}
+              variants={fadeUp}
+              className="glass-card group p-6 flex flex-col gap-4"
+              whileHover={{ y: -4 }}
               transition={{ type: 'spring', stiffness: 300 }}
             >
-              {/* Background glow on hover */}
-              <div className="absolute inset-0 bg-[#FF6B00]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-              
-              <div className="relative z-10 text-center">
-                <div className="text-4xl mb-4">{stat.icon}</div>
-                <div className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-[#FF6B00] mb-3 tracking-widest">
-                  <CountUp
-                    to={stat.number}
-                    from={0}
-                    duration={2}
-                    delay={index * 0.15}
-                    startWhen={isInView}
-                    className="inline"
-                  />
-                  {stat.suffix}
-                </div>
-                <div className="text-sm text-gray-300 font-bold uppercase tracking-wider">
-                  {stat.label}
-                </div>
+              <div style={{ color: 'var(--accent)' }}>
+                <Icon />
+              </div>
+              <div>
+                <p
+                  className="text-3xl md:text-4xl font-black font-heading"
+                  style={{ color: 'var(--text-primary)' }}
+                >
+                  <CountUp to={value} from={0} duration={1.8} delay={i * 0.12} startWhen={isInView} className="inline" />
+                  <span style={{ color: 'var(--accent)' }}>{suffix}</span>
+                </p>
+                <p className="text-sm mt-1 font-medium" style={{ color: 'var(--text-muted)' }}>{label}</p>
               </div>
             </motion.div>
           ))}
@@ -193,4 +232,3 @@ export default function About() {
     </section>
   );
 }
-

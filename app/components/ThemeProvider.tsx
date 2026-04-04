@@ -24,8 +24,8 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     if (typeof window !== 'undefined') {
       const root = document.documentElement;
       const savedTheme = localStorage.getItem('theme') as Theme | null;
-      // Default to light mode if no preference is saved
-      const initialTheme = savedTheme || 'light';
+      // Default to dark mode if no preference is saved
+      const initialTheme = savedTheme || 'dark';
       
       setTheme(initialTheme);
       
