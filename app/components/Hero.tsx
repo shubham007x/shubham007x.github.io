@@ -1,38 +1,11 @@
 'use client';
 
-import { motion } from 'framer-motion';
-
-/* ─── Unique geometric SVG decorations ─── */
-const HexagonMark = () => (
-  <svg width="80" height="92" viewBox="0 0 80 92" fill="none">
-    <polygon
-      points="40,2 78,22 78,70 40,90 2,70 2,22"
-      stroke="currentColor"
-      strokeWidth="1.5"
-      fill="none"
-      opacity="0.3"
-    />
-    <polygon
-      points="40,14 66,28 66,64 40,78 14,64 14,28"
-      stroke="currentColor"
-      strokeWidth="1"
-      fill="none"
-      opacity="0.15"
-    />
-  </svg>
-);
-
-const OrbitRing = () => (
-  <svg width="320" height="320" viewBox="0 0 320 320" fill="none" className="animate-spin-slow opacity-20">
-    <ellipse cx="160" cy="160" rx="155" ry="60" stroke="currentColor" strokeWidth="1" strokeDasharray="6 6" />
-    <ellipse cx="160" cy="160" rx="155" ry="60" stroke="currentColor" strokeWidth="1" strokeDasharray="6 6"
-      transform="rotate(60 160 160)" />
-    <ellipse cx="160" cy="160" rx="155" ry="60" stroke="currentColor" strokeWidth="1" strokeDasharray="6 6"
-      transform="rotate(120 160 160)" />
-    <circle cx="160" cy="5"   r="3" fill="currentColor" opacity="0.6" />
-    <circle cx="160" cy="315" r="3" fill="currentColor" opacity="0.6" />
-  </svg>
-);
+import { motion, useReducedMotion } from 'framer-motion';
+import { useRef } from 'react';
+import Aurora from './ui/Aurora';
+import ParticleField from './ui/ParticleField';
+import AnimatedText from './ui/AnimatedText';
+import MagneticButton from './ui/MagneticButton';
 
 /* ─── Brand icon SVGs ─── */
 const GitHubIcon = () => (
@@ -52,30 +25,63 @@ const scrollToSection = (id: string) => {
 };
 
 export default function Hero() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const spotlightRef = useRef<HTMLDivElement>(null);
+  const reduced = useReducedMotion();
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLElement>) => {
+    if (reduced) return;
+    const section = sectionRef.current;
+    const spot = spotlightRef.current;
+    if (!section || !spot) return;
+    const rect = section.getBoundingClientRect();
+    spot.style.setProperty('--hero-x', `${e.clientX - rect.left}px`);
+    spot.style.setProperty('--hero-y', `${e.clientY - rect.top}px`);
+    spot.style.opacity = '1';
+  };
+
+  const handleMouseLeave = () => {
+    if (spotlightRef.current) spotlightRef.current.style.opacity = '0';
+  };
+
   return (
     <section
+      ref={sectionRef}
       id="home"
       className="relative min-h-screen flex items-center justify-center overflow-hidden pt-16"
       style={{ background: 'var(--background)' }}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
     >
-      {/* Dot grid background */}
-      <div className="absolute inset-0 dot-grid opacity-50 pointer-events-none" />
+      {/* Aurora gradient blobs */}
+      <Aurora />
 
-      {/* Radial gradient glow */}
+      {/* Canvas starfield */}
+      <ParticleField />
+
+      {/* Dot grid background */}
+      <div className="absolute inset-0 dot-grid opacity-30 pointer-events-none" />
+
+      {/* Cursor-following spotlight */}
       <div
-        className="absolute inset-0 pointer-events-none"
+        ref={spotlightRef}
+        aria-hidden="true"
+        className="absolute inset-0 pointer-events-none transition-opacity duration-500"
         style={{
-          background: 'radial-gradient(ellipse 70% 55% at 50% 30%, var(--accent-glow), transparent 70%)',
+          opacity: 0,
+          background:
+            'radial-gradient(600px circle at var(--hero-x, 50%) var(--hero-y, 40%), var(--accent-glow), transparent 70%)',
         }}
       />
 
-      {/* Orbit rings decoration */}
+      {/* Radial vignette focusing the center */}
       <div
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none"
-        style={{ color: 'var(--accent)' }}
-      >
-        <OrbitRing />
-      </div>
+        aria-hidden="true"
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background: 'radial-gradient(ellipse 90% 80% at 50% 45%, transparent 55%, var(--background) 100%)',
+        }}
+      />
 
       {/* Content */}
       <div className="relative z-10 max-w-6xl mx-auto px-6 lg:px-8 py-20 text-center">
@@ -85,12 +91,8 @@ export default function Hero() {
           initial={{ opacity: 0, y: -16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.1 }}
-          className="inline-flex items-center gap-2 mb-8 px-4 py-1.5 rounded-full border text-sm font-semibold"
-          style={{
-            borderColor: 'var(--border-strong)',
-            background: 'var(--surface)',
-            color: 'var(--text-secondary)',
-          }}
+          className="glass-card inline-flex items-center gap-2 mb-8 px-4 py-1.5 rounded-full text-sm font-semibold"
+          style={{ color: 'var(--text-secondary)' }}
         >
           <span className="relative flex h-2 w-2">
             <span
@@ -102,33 +104,20 @@ export default function Hero() {
           Available for new opportunities
         </motion.div>
 
-        {/* Hexagon mark + name */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          className="relative inline-block mb-4"
+        {/* Name — per-letter clip reveal */}
+        <h1
+          className="display-1 font-black font-heading mb-4"
+          style={{ color: 'var(--text-primary)' }}
         >
-          <div
-            className="absolute -top-8 -right-10 opacity-30"
-            style={{ color: 'var(--accent)' }}
-          >
-            <HexagonMark />
-          </div>
-          <h1
-            className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black font-heading tracking-tight"
-            style={{ color: 'var(--text-primary)' }}
-          >
-            Shubham{' '}
-            <span className="gradient-text">Agdari</span>
-          </h1>
-        </motion.div>
+          <AnimatedText text="Shubham" delay={0.2} />{' '}
+          <AnimatedText text="Agdari" delay={0.45} letterClassName="gradient-text" />
+        </h1>
 
         {/* Role */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.35 }}
+          transition={{ duration: 0.6, delay: 0.75 }}
         >
           <p
             className="text-xl sm:text-2xl md:text-3xl font-semibold mb-6 font-heading tracking-wide"
@@ -144,7 +133,7 @@ export default function Hero() {
           style={{ color: 'var(--text-secondary)' }}
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.45 }}
+          transition={{ duration: 0.6, delay: 0.85 }}
         >
           Building exceptional digital experiences through clean architecture,
           modern web technologies, and a relentless focus on performance.
@@ -155,43 +144,22 @@ export default function Hero() {
           className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center mb-12"
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.55 }}
+          transition={{ duration: 0.6, delay: 0.95 }}
         >
-          <button
+          <MagneticButton
+            variant="primary"
             onClick={() => scrollToSection('projects')}
-            className="group relative w-full sm:w-auto px-8 py-3.5 rounded-full font-semibold text-base overflow-hidden transition-all duration-200"
-            style={{ background: 'var(--accent)', color: '#fff' }}
-            onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.background = 'var(--accent-hover)'; }}
-            onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.background = 'var(--accent)'; }}
+            className="w-full sm:w-auto"
           >
-            <span className="relative z-10">View My Work</span>
-            <span
-              className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-200"
-              style={{ background: 'linear-gradient(135deg, var(--accent-hover) 0%, var(--accent) 100%)' }}
-            />
-          </button>
-
-          <button
+            View My Work
+          </MagneticButton>
+          <MagneticButton
+            variant="ghost"
             onClick={() => scrollToSection('contact')}
-            className="w-full sm:w-auto px-8 py-3.5 rounded-full font-semibold text-base border transition-all duration-200"
-            style={{
-              borderColor: 'var(--border-strong)',
-              color: 'var(--text-primary)',
-              background: 'transparent',
-            }}
-            onMouseEnter={(e) => {
-              (e.currentTarget as HTMLElement).style.borderColor = 'var(--accent)';
-              (e.currentTarget as HTMLElement).style.color = 'var(--accent)';
-              (e.currentTarget as HTMLElement).style.background = 'var(--accent-bg)';
-            }}
-            onMouseLeave={(e) => {
-              (e.currentTarget as HTMLElement).style.borderColor = 'var(--border-strong)';
-              (e.currentTarget as HTMLElement).style.color = 'var(--text-primary)';
-              (e.currentTarget as HTMLElement).style.background = 'transparent';
-            }}
+            className="w-full sm:w-auto"
           >
             Get In Touch
-          </button>
+          </MagneticButton>
         </motion.div>
 
         {/* Social links */}
@@ -199,16 +167,13 @@ export default function Hero() {
           className="flex items-center justify-center gap-6"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 0.6, delay: 0.65 }}
+          transition={{ duration: 0.6, delay: 1.05 }}
         >
           <a
             href="https://github.com/shubham007x"
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-2 text-sm font-semibold transition-all duration-200"
-            style={{ color: 'var(--text-muted)' }}
-            onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = 'var(--accent)'; }}
-            onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = 'var(--text-muted)'; }}
+            className="link-glow flex items-center gap-2 text-sm font-semibold"
             aria-label="GitHub"
           >
             <GitHubIcon />
@@ -219,10 +184,7 @@ export default function Hero() {
             href="https://linkedin.com/in/shubham-agdari-30500617b"
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-2 text-sm font-semibold transition-all duration-200"
-            style={{ color: 'var(--text-muted)' }}
-            onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = 'var(--accent)'; }}
-            onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = 'var(--text-muted)'; }}
+            className="link-glow flex items-center gap-2 text-sm font-semibold"
             aria-label="LinkedIn"
           >
             <LinkedInIcon />
@@ -235,7 +197,7 @@ export default function Hero() {
           className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 0.6, delay: 1.0 }}
+          transition={{ duration: 0.6, delay: 1.4 }}
         >
           <span className="text-xs font-medium tracking-widest uppercase" style={{ color: 'var(--text-muted)' }}>
             Scroll

@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
 import { Rajdhani, Orbitron } from "next/font/google";
 import "./globals.css";
-import { ThemeProvider } from "./components/ThemeProvider";
+import Providers from "./components/Providers";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
+import ScrollProgress from "./components/ui/ScrollProgress";
+import ScrollToTop from "./components/ui/ScrollToTop";
 
 const rajdhani = Rajdhani({
   variable: "--font-rajdhani",
@@ -62,7 +64,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     <html lang="en" suppressHydrationWarning>
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
-        <meta name="color-scheme" content="light dark" />
+        <meta name="color-scheme" content="dark" />
         <link rel="canonical" href="https://shubham007x.github.io" />
         <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
         <link rel="icon" href="/favicon.ico" />
@@ -80,22 +82,18 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
             }),
           }}
         />
-        {/* Prevent flash of wrong theme */}
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `(function(){try{var t=localStorage.getItem('theme')||'dark';if(t==='dark'){document.documentElement.classList.add('dark');}else{document.documentElement.classList.remove('dark');}}catch(e){document.documentElement.classList.add('dark');}})();`,
-          }}
-        />
       </head>
       <body
         className={`${rajdhani.variable} ${orbitron.variable} font-sans antialiased`}
         suppressHydrationWarning
       >
-        <ThemeProvider>
+        <Providers>
+          <ScrollProgress />
           <Navbar />
           {children}
           <Footer />
-        </ThemeProvider>
+          <ScrollToTop />
+        </Providers>
       </body>
     </html>
   );

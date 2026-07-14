@@ -3,6 +3,8 @@
 import { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
 import Image from 'next/image';
+import GlowCard from './ui/GlowCard';
+import Aurora from './ui/Aurora';
 
 /* ─── Unique link arrow glyph ─── */
 const ArrowUpRight = () => (
@@ -63,10 +65,6 @@ const container = {
   hidden: {},
   visible: { transition: { staggerChildren: 0.12 } },
 };
-const card = {
-  hidden:  { opacity: 0, y: 40 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.55, ease: 'easeOut' as const } },
-};
 
 export default function Projects() {
   const ref = useRef(null);
@@ -79,12 +77,9 @@ export default function Projects() {
       style={{ background: 'var(--surface-alt)' }}
       className="relative overflow-hidden"
     >
-      <div
-        className="absolute top-0 right-0 w-96 h-96 rounded-full blur-3xl opacity-[0.06] pointer-events-none"
-        style={{ background: 'var(--accent)' }}
-      />
+      <Aurora intensity={0.35} />
 
-      <div className="max-w-6xl mx-auto px-6 lg:px-8 py-24 md:py-32">
+      <div className="relative max-w-6xl mx-auto px-6 lg:px-8 py-24 md:py-32">
 
         {/* Heading */}
         <motion.div
@@ -115,104 +110,110 @@ export default function Projects() {
           animate={isInView ? 'visible' : 'hidden'}
         >
           {projects.map((project, i) => (
-            <motion.article
+            <motion.div
               key={i}
-              variants={card}
-              className="glass-card overflow-hidden group flex flex-col"
+              variants={{
+                hidden: { opacity: 0, y: 44, x: (i % 3) * 8 - 8 },
+                visible: { opacity: 1, y: 0, x: 0, transition: { duration: 0.55, ease: 'easeOut' as const } },
+              }}
               whileHover={{ y: -6 }}
               transition={{ type: 'spring', stiffness: 280, damping: 22 }}
+              className="h-full"
             >
-              {/* Image */}
-              <div className="relative h-44 overflow-hidden">
-                <Image
-                  src={project.image}
-                  alt={`${project.title} screenshot`}
-                  fill
-                  className="object-cover transition-transform duration-500 group-hover:scale-105"
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                />
-                {/* Colour tint overlay */}
-                <div
-                  className="absolute inset-0 opacity-0 group-hover:opacity-20 transition-opacity duration-300"
-                  style={{ background: project.accent }}
-                />
-                {/* Bottom fade */}
-                <div
-                  className="absolute bottom-0 left-0 right-0 h-16"
-                  style={{
-                    background: `linear-gradient(to top, var(--surface) 0%, transparent 100%)`,
-                  }}
-                />
-                {/* Accent dot */}
-                <div
-                  className="absolute top-3 left-3 w-2 h-2 rounded-full"
-                  style={{ background: project.accent }}
-                />
-              </div>
-
-              {/* Content */}
-              <div className="flex flex-col flex-1 p-5">
-                <h3
-                  className="text-lg font-bold font-heading mb-2"
-                  style={{ color: 'var(--text-primary)' }}
-                >
-                  {project.title}
-                </h3>
-                <p
-                  className="text-sm leading-relaxed mb-4 flex-1"
-                  style={{ color: 'var(--text-secondary)' }}
-                >
-                  {project.description}
-                </p>
-
-                {/* Tech tags */}
-                <div className="flex flex-wrap gap-1.5 mb-5">
-                  {project.technologies.map((tech, ti) => (
-                    <span
-                      key={ti}
-                      className="px-2 py-0.5 rounded-md text-xs font-semibold border"
+              <GlowCard
+                tilt
+                spotColor={`${project.accent}99`}
+                className="overflow-hidden group flex flex-col h-full"
+              >
+                <article className="flex flex-col flex-1">
+                  {/* Image */}
+                  <div className="relative h-44 overflow-hidden">
+                    <Image
+                      src={project.image}
+                      alt={`${project.title} screenshot`}
+                      fill
+                      className="object-cover saturate-[0.85] brightness-90 transition-all duration-500 group-hover:scale-[1.06] group-hover:saturate-100 group-hover:brightness-100"
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    />
+                    {/* Colour tint overlay */}
+                    <div
+                      className="absolute inset-0 opacity-0 group-hover:opacity-15 transition-opacity duration-300"
+                      style={{ background: project.accent }}
+                    />
+                    {/* Bottom fade into the glass surface */}
+                    <div
+                      className="absolute bottom-0 left-0 right-0 h-24"
                       style={{
-                        color: 'var(--text-muted)',
-                        borderColor: 'var(--border)',
-                        background: 'var(--surface-alt)',
+                        background: 'linear-gradient(to top, var(--surface) 0%, transparent 100%)',
                       }}
-                    >
-                      {tech}
-                    </span>
-                  ))}
-                </div>
+                    />
+                    {/* Accent dot */}
+                    <div
+                      className="absolute top-3 left-3 w-2 h-2 rounded-full"
+                      style={{ background: project.accent, boxShadow: `0 0 10px ${project.accent}` }}
+                    />
+                  </div>
 
-                {/* Links */}
-                <div className="flex items-center gap-4 pt-3" style={{ borderTop: '1px solid var(--border)' }}>
-                  {project.link && (
-                    <a
-                      href={project.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-1.5 text-sm font-semibold transition-all duration-200"
-                      style={{ color: 'var(--accent)' }}
-                      onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = 'var(--accent-hover)'; }}
-                      onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = 'var(--accent)'; }}
+                  {/* Content */}
+                  <div className="flex flex-col flex-1 p-5">
+                    <h3
+                      className="text-lg font-bold font-heading mb-2"
+                      style={{ color: 'var(--text-primary)' }}
                     >
-                      Live Demo <ArrowUpRight />
-                    </a>
-                  )}
-                  {project.github && (
-                    <a
-                      href={project.github}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-1.5 text-sm font-semibold transition-all duration-200"
-                      style={{ color: 'var(--text-muted)' }}
-                      onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = 'var(--text-secondary)'; }}
-                      onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = 'var(--text-muted)'; }}
+                      {project.title}
+                    </h3>
+                    <p
+                      className="text-sm leading-relaxed mb-4 flex-1"
+                      style={{ color: 'var(--text-secondary)' }}
                     >
-                      GitHub <ArrowUpRight />
-                    </a>
-                  )}
-                </div>
-              </div>
-            </motion.article>
+                      {project.description}
+                    </p>
+
+                    {/* Tech tags */}
+                    <div className="flex flex-wrap gap-1.5 mb-5">
+                      {project.technologies.map((tech, ti) => (
+                        <span
+                          key={ti}
+                          className="px-2.5 py-0.5 rounded-full text-xs font-semibold border"
+                          style={{
+                            color: 'var(--text-muted)',
+                            borderColor: 'var(--border)',
+                            background: 'var(--accent-bg)',
+                          }}
+                        >
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
+
+                    {/* Links */}
+                    <div className="flex items-center gap-4 pt-3" style={{ borderTop: '1px solid var(--border)' }}>
+                      {project.link && (
+                        <a
+                          href={project.link}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="link-glow flex items-center gap-1.5 text-sm font-semibold"
+                          style={{ color: 'var(--accent)' }}
+                        >
+                          Live Demo <ArrowUpRight />
+                        </a>
+                      )}
+                      {project.github && (
+                        <a
+                          href={project.github}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="link-glow flex items-center gap-1.5 text-sm font-semibold"
+                        >
+                          GitHub <ArrowUpRight />
+                        </a>
+                      )}
+                    </div>
+                  </div>
+                </article>
+              </GlowCard>
+            </motion.div>
           ))}
         </motion.div>
       </div>

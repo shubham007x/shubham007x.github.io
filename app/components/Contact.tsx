@@ -2,6 +2,9 @@
 
 import { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
+import GlowCard from './ui/GlowCard';
+import MagneticButton from './ui/MagneticButton';
+import Aurora from './ui/Aurora';
 
 /* ─── Custom geometric contact icons ─── */
 const EnvelopeGlyph = () => (
@@ -98,6 +101,7 @@ export default function Contact() {
       style={{ background: 'var(--surface-alt)' }}
       className="relative overflow-hidden"
     >
+      <Aurora intensity={0.4} />
       <div
         className="absolute inset-0 pointer-events-none"
         style={{ background: 'radial-gradient(ellipse 60% 50% at 50% 100%, var(--accent-glow), transparent 70%)' }}
@@ -137,15 +141,11 @@ export default function Contact() {
             animate={isInView ? 'visible' : 'hidden'}
           >
             {contactItems.map(({ Icon, label, display, link }, i) => (
-              <motion.div key={i} variants={item}>
-                <div
-                  className="glass-card p-5 flex items-start gap-4 group hover:border-[var(--accent)] transition-all duration-300"
-                >
+              <motion.div key={i} variants={item} className="h-full">
+                <GlowCard className="p-5 flex items-start gap-4 group h-full">
                   <div
-                    className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 transition-colors duration-300 group-hover:bg-[var(--accent)]"
+                    className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 transition-colors duration-300 group-hover:bg-[var(--accent)] group-hover:text-white"
                     style={{ background: 'var(--accent-bg)', color: 'var(--accent)' }}
-                    onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = '#fff'; }}
-                    onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = 'var(--accent)'; }}
                   >
                     <Icon />
                   </div>
@@ -158,10 +158,8 @@ export default function Contact() {
                         href={link}
                         target={link.startsWith('http') ? '_blank' : undefined}
                         rel={link.startsWith('http') ? 'noopener noreferrer' : undefined}
-                        className="text-sm font-semibold truncate block transition-colors duration-200"
+                        className="link-glow text-sm font-semibold truncate block"
                         style={{ color: 'var(--text-primary)' }}
-                        onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = 'var(--accent)'; }}
-                        onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = 'var(--text-primary)'; }}
                       >
                         {display}
                       </a>
@@ -169,7 +167,7 @@ export default function Contact() {
                       <p className="text-sm font-semibold" style={{ color: 'var(--text-primary)' }}>{display}</p>
                     )}
                   </div>
-                </div>
+                </GlowCard>
               </motion.div>
             ))}
           </motion.div>
@@ -179,8 +177,8 @@ export default function Contact() {
             initial={{ opacity: 0, x: 32 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.55, delay: 0.2 }}
-            className="glass-card p-8 flex flex-col gap-6"
           >
+          <GlowCard className="p-8 flex flex-col gap-6">
             <div>
               <p className="text-xs font-bold tracking-widest uppercase mb-2" style={{ color: 'var(--accent)' }}>
                 Currently available
@@ -197,16 +195,14 @@ export default function Contact() {
               </p>
             </div>
 
-            <a
+            <MagneticButton
+              variant="primary"
               href="mailto:shubham.agdari@gmail.com"
-              className="group flex items-center justify-center gap-2 px-6 py-3.5 rounded-full font-semibold text-sm transition-all duration-200"
-              style={{ background: 'var(--accent)', color: '#fff' }}
-              onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.background = 'var(--accent-hover)'; }}
-              onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.background = 'var(--accent)'; }}
+              className="w-full text-sm"
             >
               Send me an email
               <ArrowUpRight />
-            </a>
+            </MagneticButton>
 
             {/* Social row */}
             <div className="flex items-center gap-4 pt-2" style={{ borderTop: '1px solid var(--border)' }}>
@@ -218,23 +214,13 @@ export default function Contact() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={label}
-                  className="w-9 h-9 rounded-lg flex items-center justify-center border transition-all duration-200"
-                  style={{ color: 'var(--text-secondary)', borderColor: 'var(--border)', background: 'transparent' }}
-                  onMouseEnter={(e) => {
-                    (e.currentTarget as HTMLElement).style.borderColor = 'var(--accent)';
-                    (e.currentTarget as HTMLElement).style.color = 'var(--accent)';
-                    (e.currentTarget as HTMLElement).style.background = 'var(--accent-bg)';
-                  }}
-                  onMouseLeave={(e) => {
-                    (e.currentTarget as HTMLElement).style.borderColor = 'var(--border)';
-                    (e.currentTarget as HTMLElement).style.color = 'var(--text-secondary)';
-                    (e.currentTarget as HTMLElement).style.background = 'transparent';
-                  }}
+                  className="icon-btn w-9 h-9"
                 >
                   <Icon />
                 </a>
               ))}
             </div>
+          </GlowCard>
           </motion.div>
         </div>
       </div>

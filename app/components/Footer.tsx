@@ -43,11 +43,14 @@ export default function Footer() {
   return (
     <footer
       className="relative"
-      style={{
-        background: 'var(--background)',
-        borderTop: '1px solid var(--border)',
-      }}
+      style={{ background: 'var(--background)' }}
     >
+      {/* Gradient hairline */}
+      <div
+        aria-hidden="true"
+        className="absolute top-0 left-0 right-0 h-px"
+        style={{ background: 'linear-gradient(90deg, transparent, var(--accent), var(--accent-2), transparent)', opacity: 0.5 }}
+      />
       <div className="max-w-6xl mx-auto px-6 lg:px-8 py-14">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
 
@@ -75,10 +78,7 @@ export default function Footer() {
                 <li key={l.id}>
                   <button
                     onClick={() => scroll(l.id)}
-                    className="text-sm font-medium transition-colors duration-200"
-                    style={{ color: 'var(--text-secondary)' }}
-                    onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = 'var(--accent)'; }}
-                    onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = 'var(--text-secondary)'; }}
+                    className="link-glow text-sm font-medium"
                   >
                     {l.name}
                   </button>
@@ -100,18 +100,7 @@ export default function Footer() {
                   target={href.startsWith('http') ? '_blank' : undefined}
                   rel={href.startsWith('http') ? 'noopener noreferrer' : undefined}
                   aria-label={label}
-                  className="w-9 h-9 rounded-lg flex items-center justify-center border transition-all duration-200"
-                  style={{ color: 'var(--text-secondary)', borderColor: 'var(--border)', background: 'transparent' }}
-                  onMouseEnter={(e) => {
-                    (e.currentTarget as HTMLElement).style.borderColor = 'var(--accent)';
-                    (e.currentTarget as HTMLElement).style.color = 'var(--accent)';
-                    (e.currentTarget as HTMLElement).style.background = 'var(--accent-bg)';
-                  }}
-                  onMouseLeave={(e) => {
-                    (e.currentTarget as HTMLElement).style.borderColor = 'var(--border)';
-                    (e.currentTarget as HTMLElement).style.color = 'var(--text-secondary)';
-                    (e.currentTarget as HTMLElement).style.background = 'transparent';
-                  }}
+                  className="icon-btn w-9 h-9"
                 >
                   <Icon />
                 </a>
@@ -123,10 +112,7 @@ export default function Footer() {
             </p>
             <a
               href="mailto:shubham.agdari@gmail.com"
-              className="text-sm mt-1 block transition-colors duration-200"
-              style={{ color: 'var(--text-secondary)' }}
-              onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = 'var(--accent)'; }}
-              onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = 'var(--text-secondary)'; }}
+              className="link-glow text-sm mt-1 block"
             >
               shubham.agdari@gmail.com
             </a>

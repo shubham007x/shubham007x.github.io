@@ -1,9 +1,10 @@
 'use client';
 
 import { useRef } from 'react';
-import { motion, useInView } from 'framer-motion';
+import { motion, useInView, useScroll, useTransform } from 'framer-motion';
 import Image from 'next/image';
-import CountUp from '@/components/CountUp';
+import CountUp from './ui/CountUp';
+import GlowCard from './ui/GlowCard';
 
 /* ─── Unique stat icons (custom geometric paths) ─── */
 const CalendarGlyph = () => (
@@ -65,8 +66,10 @@ const stats = [
 ];
 
 export default function About() {
-  const ref = useRef(null);
+  const ref = useRef<HTMLElement>(null);
   const isInView = useInView(ref, { once: true, margin: '-100px' });
+  const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'end start'] });
+  const blobY = useTransform(scrollYProgress, [0, 1], [-40, 40]);
 
   return (
     <section
@@ -75,10 +78,10 @@ export default function About() {
       className="relative overflow-hidden"
       style={{ background: 'var(--surface-alt)' }}
     >
-      {/* Subtle corner accent */}
-      <div
+      {/* Subtle corner accent with scroll parallax */}
+      <motion.div
         className="absolute top-0 right-0 w-72 h-72 rounded-full blur-3xl opacity-10 pointer-events-none"
-        style={{ background: 'var(--accent)' }}
+        style={{ background: 'var(--accent)', y: blobY }}
       />
 
       <div className="max-w-6xl mx-auto px-6 lg:px-8 py-24 md:py-32">
@@ -208,23 +211,25 @@ export default function About() {
             <motion.div
               key={i}
               variants={fadeUp}
-              className="glass-card group p-6 flex flex-col gap-4"
               whileHover={{ y: -4 }}
               transition={{ type: 'spring', stiffness: 300 }}
+              className="h-full"
             >
-              <div style={{ color: 'var(--accent)' }}>
-                <Icon />
-              </div>
-              <div>
-                <p
-                  className="text-3xl md:text-4xl font-black font-heading"
-                  style={{ color: 'var(--text-primary)' }}
-                >
-                  <CountUp to={value} from={0} duration={1.8} delay={i * 0.12} startWhen={isInView} className="inline" />
-                  <span style={{ color: 'var(--accent)' }}>{suffix}</span>
-                </p>
-                <p className="text-sm mt-1 font-medium" style={{ color: 'var(--text-muted)' }}>{label}</p>
-              </div>
+              <GlowCard className="group p-6 flex flex-col gap-4 h-full">
+                <div style={{ color: 'var(--accent)' }}>
+                  <Icon />
+                </div>
+                <div>
+                  <p
+                    className="text-3xl md:text-4xl font-black font-heading"
+                    style={{ color: 'var(--text-primary)' }}
+                  >
+                    <CountUp to={value} from={0} duration={1.8} delay={i * 0.12} startWhen={isInView} className="inline" />
+                    <span style={{ color: 'var(--accent)' }}>{suffix}</span>
+                  </p>
+                  <p className="text-sm mt-1 font-medium" style={{ color: 'var(--text-muted)' }}>{label}</p>
+                </div>
+              </GlowCard>
             </motion.div>
           ))}
         </motion.div>

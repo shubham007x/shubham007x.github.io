@@ -1,7 +1,8 @@
 'use client';
 
 import { useRef } from 'react';
-import { motion, useInView } from 'framer-motion';
+import { motion, useInView, useScroll, useTransform } from 'framer-motion';
+import GlowCard from './ui/GlowCard';
 import {
   SiReact, SiNextdotjs, SiTypescript, SiJavascript, SiHtml5,
   SiCss3, SiTailwindcss, SiNodedotjs, SiExpress, SiRedux,
@@ -61,8 +62,10 @@ const item = {
 };
 
 export default function Skills() {
-  const ref = useRef(null);
+  const ref = useRef<HTMLElement>(null);
   const isInView = useInView(ref, { once: true, margin: '-80px' });
+  const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'end start'] });
+  const blobY = useTransform(scrollYProgress, [0, 1], [40, -40]);
 
   return (
     <section
@@ -71,9 +74,9 @@ export default function Skills() {
       style={{ background: 'var(--background)' }}
       className="relative overflow-hidden"
     >
-      <div
+      <motion.div
         className="absolute bottom-0 left-0 w-80 h-80 rounded-full blur-3xl opacity-10 pointer-events-none"
-        style={{ background: 'var(--accent)' }}
+        style={{ background: 'var(--accent-3)', y: blobY }}
       />
 
       <div className="max-w-6xl mx-auto px-6 lg:px-8 py-24 md:py-32">
@@ -130,27 +133,32 @@ export default function Skills() {
                   <motion.div
                     key={si}
                     variants={item}
-                    className="glass-card group flex flex-col items-center gap-2.5 p-4 cursor-default"
                     whileHover={{ y: -4, scale: 1.04 }}
                     transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+                    className="h-full"
                   >
-                    {/* Icon */}
-                    <div
-                      className="w-10 h-10 flex items-center justify-center rounded-xl transition-transform duration-300 group-hover:scale-110"
-                      style={{ background: `${skill.color}15` }}
+                    <GlowCard
+                      spotColor={`${skill.color}66`}
+                      className="group flex flex-col items-center gap-2.5 p-4 cursor-default h-full"
                     >
-                      <skill.icon
-                        className="w-5 h-5"
-                        style={{ color: skill.color, filter: skill.name === 'Next.js' || skill.name === 'Express.js' ? 'brightness(0.85) contrast(1.2)' : 'none' }}
-                      />
-                    </div>
-                    {/* Name */}
-                    <span
-                      className="text-xs font-semibold text-center leading-tight"
-                      style={{ color: 'var(--text-secondary)' }}
-                    >
-                      {skill.name}
-                    </span>
+                      {/* Icon */}
+                      <div
+                        className="w-10 h-10 flex items-center justify-center rounded-xl transition-transform duration-300 group-hover:scale-110"
+                        style={{ background: `${skill.color}15` }}
+                      >
+                        <skill.icon
+                          className="w-5 h-5"
+                          style={{ color: skill.color, filter: skill.name === 'Next.js' || skill.name === 'Express.js' ? 'brightness(0.85) contrast(1.2)' : 'none' }}
+                        />
+                      </div>
+                      {/* Name */}
+                      <span
+                        className="text-xs font-semibold text-center leading-tight"
+                        style={{ color: 'var(--text-secondary)' }}
+                      >
+                        {skill.name}
+                      </span>
+                    </GlowCard>
                   </motion.div>
                 ))}
               </motion.div>

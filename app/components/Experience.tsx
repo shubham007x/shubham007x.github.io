@@ -1,7 +1,8 @@
 'use client';
 
 import { useRef } from 'react';
-import { motion, useInView } from 'framer-motion';
+import { motion, useInView, useScroll, useSpring } from 'framer-motion';
+import GlowCard from './ui/GlowCard';
 
 /* ─── Unique bullet glyph ─── */
 const PentagonDot = ({ color }: { color: string }) => (
@@ -21,18 +22,6 @@ const experiences = [
       'Developing scalable software solutions using modern web technologies',
       'Collaborating with cross-functional teams to deliver high-quality products',
       'Implementing best practices in software development and code quality',
-    ],
-  },
-  {
-    title: 'Frontend Developer',
-    company: 'Futy',
-    location: 'Remote',
-    period: 'May 2025 – Aug 2025',
-    current: false,
-    description: [
-      'Built reusable, responsive UI components using React, TypeScript, and Tailwind CSS',
-      'Integrated REST APIs for real-time updates with low latency',
-      'Implemented interactive features like reward chests and quiz timers',
     ],
   },
   {
@@ -66,13 +55,19 @@ const container = {
   visible: { transition: { staggerChildren: 0.18 } },
 };
 const item = {
-  hidden:  { opacity: 0, x: -28 },
+  hidden: { opacity: 0, x: -28 },
   visible: { opacity: 1, x: 0, transition: { duration: 0.55, ease: 'easeOut' as const } },
 };
 
 export default function Experience() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-80px' });
+  const timelineRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: timelineRef,
+    offset: ['start 80%', 'end 55%'],
+  });
+  const trackScale = useSpring(scrollYProgress, { stiffness: 120, damping: 30, restDelta: 0.001 });
 
   return (
     <section
@@ -110,14 +105,21 @@ export default function Experience() {
         </motion.div>
 
         {/* Timeline */}
-        <div className="relative">
-          {/* Vertical track */}
+        <div className="relative" ref={timelineRef}>
+          {/* Vertical track (base) */}
+          <div
+            className="absolute left-[11px] top-0 bottom-0 w-px"
+            style={{ background: 'var(--border)' }}
+          />
+          {/* Vertical track — draws in as you scroll */}
           <motion.div
             className="absolute left-[11px] top-0 bottom-0 w-px"
-            style={{ background: 'var(--border-strong)', transformOrigin: 'top' }}
-            initial={{ scaleY: 0 }}
-            animate={isInView ? { scaleY: 1 } : {}}
-            transition={{ duration: 1.2, delay: 0.3, ease: 'easeOut' }}
+            style={{
+              background: 'linear-gradient(to bottom, var(--accent), var(--accent-2))',
+              boxShadow: 'var(--glow-sm)',
+              transformOrigin: 'top',
+              scaleY: trackScale,
+            }}
           />
 
           <motion.div
@@ -157,9 +159,7 @@ export default function Experience() {
                 </div>
 
                 {/* Card */}
-                <div
-                  className="glass-card p-5 sm:p-6 hover:border-[var(--accent)] transition-all duration-300"
-                >
+                <GlowCard className="p-5 sm:p-6">
                   <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 mb-2">
                     <div>
                       <h3
@@ -198,7 +198,7 @@ export default function Experience() {
                       </li>
                     ))}
                   </ul>
-                </div>
+                </GlowCard>
               </motion.div>
             ))}
           </motion.div>
