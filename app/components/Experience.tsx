@@ -1,8 +1,7 @@
 'use client';
 
 import { useRef } from 'react';
-import { motion, useInView, useScroll, useSpring } from 'framer-motion';
-import GlowCard from './ui/GlowCard';
+import { motion, useInView } from 'framer-motion';
 
 /* ─── Unique bullet glyph ─── */
 const PentagonDot = ({ color }: { color: string }) => (
@@ -62,12 +61,6 @@ const item = {
 export default function Experience() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-80px' });
-  const timelineRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: timelineRef,
-    offset: ['start 80%', 'end 55%'],
-  });
-  const trackScale = useSpring(scrollYProgress, { stiffness: 120, damping: 30, restDelta: 0.001 });
 
   return (
     <section
@@ -105,21 +98,14 @@ export default function Experience() {
         </motion.div>
 
         {/* Timeline */}
-        <div className="relative" ref={timelineRef}>
-          {/* Vertical track (base) */}
-          <div
-            className="absolute left-[11px] top-0 bottom-0 w-px"
-            style={{ background: 'var(--border)' }}
-          />
-          {/* Vertical track — draws in as you scroll */}
+        <div className="relative">
+          {/* Vertical track */}
           <motion.div
             className="absolute left-[11px] top-0 bottom-0 w-px"
-            style={{
-              background: 'linear-gradient(to bottom, var(--accent), var(--accent-2))',
-              boxShadow: 'var(--glow-sm)',
-              transformOrigin: 'top',
-              scaleY: trackScale,
-            }}
+            style={{ background: 'var(--border-strong)', transformOrigin: 'top' }}
+            initial={{ scaleY: 0 }}
+            animate={isInView ? { scaleY: 1 } : {}}
+            transition={{ duration: 1.2, delay: 0.3, ease: 'easeOut' }}
           />
 
           <motion.div
@@ -159,7 +145,9 @@ export default function Experience() {
                 </div>
 
                 {/* Card */}
-                <GlowCard className="p-5 sm:p-6">
+                <div
+                  className="glass-card p-5 sm:p-6 hover:border-(--accent) transition-all duration-300"
+                >
                   <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 mb-2">
                     <div>
                       <h3
@@ -176,7 +164,7 @@ export default function Experience() {
                       </p>
                     </div>
                     <span
-                      className="flex-shrink-0 px-3 py-1 rounded-full text-xs font-semibold border self-start"
+                      className="shrink-0 px-3 py-1 rounded-full text-xs font-semibold border self-start"
                       style={
                         exp.current
                           ? { color: 'var(--accent)', borderColor: 'var(--accent-bg)', background: 'var(--accent-bg)' }
@@ -191,14 +179,14 @@ export default function Experience() {
                     {exp.description.map((point, pi) => (
                       <li key={pi} className="flex items-start gap-3 text-sm leading-relaxed"
                         style={{ color: 'var(--text-secondary)' }}>
-                        <span className="flex-shrink-0 mt-1">
+                        <span className="shrink-0 mt-1">
                           <PentagonDot color="var(--accent)" />
                         </span>
                         {point}
                       </li>
                     ))}
                   </ul>
-                </GlowCard>
+                </div>
               </motion.div>
             ))}
           </motion.div>
